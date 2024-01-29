@@ -14,7 +14,7 @@ class Loading extends Phaser.Scene {
     }
 
     create(){
-        this.logo = this.add.tileSprite(0, 0, 256, 256, 'logo').setOrigin(0, 0)
+        this.logo = this.add.tileSprite(width/2, height/2, 256, 256, 'logo').setOrigin(0.5, 0.5)
     }
 
 }
