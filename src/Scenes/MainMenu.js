@@ -94,19 +94,21 @@ class MainMenu extends Phaser.Scene {
         //code adapted from https://labs.phaser.io/edit.html?src=src\game%20objects\particle%20emitter\explode%20emitter.js
 
         this.emitter = this.add.particles(-100,-100, 'smoke', {
-            lifespan: 10000,
-            speed: {min: 50, max: 75},
-            scale: {start:0.8, end:1.5},
-            gravityX: 1,
+            lifespan: 5000,
+            speed: {min:40, max: 60},
+            scale: {start:2, end:4.5},
+            gravityX: 0,
             gravityY: -0.5,
-            alpha: 0.4,
+            alpha: {start: 0.5, end: 0},
             blendMode: 'NORMAL', 
             emitting: false
           })
   
           this.createExplosion = (_x, _y) => {
+            let edg = new Phaser.GameObjects.Particles.Zones.EdgeZone(new Phaser.Geom.Polygon([[196, 374], [224,323], [289,305], [339,346],[367,421], [274,472]]), 16, 0, false, false)
+            this.emitter.setEmitZone(edg)
             this.emitter.setPosition(_x, _y)
-            this.emitter.explode(Math.random()*10+10)
+            this.emitter.explode(16)
           }
 
     }
@@ -135,15 +137,17 @@ class MainMenu extends Phaser.Scene {
                     this.runningDown = true
                     this.charTest.play('running')
                     this.createExplosion(width/2, height*3/4)
-
+                    //last delayed call i promise
+                   //start game scene
+                    this.time.delayedCall(4500, () => {this.scene.start('playScene')})
                 }, null, this)
             }, null, this)
-            //then 
-
-            //start game scene
         }
 
-
+        // //testing
+        // this.input.on('pointerdown', (pointer)=>{
+        //     console.log("x:" + pointer.x + " y:" + pointer.y)
+        // })
     }
     
 
