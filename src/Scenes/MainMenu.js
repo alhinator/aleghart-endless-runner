@@ -94,8 +94,8 @@ class MainMenu extends Phaser.Scene {
         //code adapted from https://labs.phaser.io/edit.html?src=src\game%20objects\particle%20emitter\explode%20emitter.js
 
         this.emitter = this.add.particles(-100,-100, 'smoke', {
-            lifespan: 5000,
-            speed: {min:40, max: 60},
+            lifespan: 4000,
+            speed: {min:60, max: 80},
             scale: {start:2, end:4.5},
             gravityX: 0,
             gravityY: -0.5,
@@ -119,7 +119,7 @@ class MainMenu extends Phaser.Scene {
         }
         if (this.runningDown){
             this.charTest.alpha += 0.03
-            this.charTest.y += 1
+            this.charTest.y += 1.5
             
         }
 
@@ -139,7 +139,7 @@ class MainMenu extends Phaser.Scene {
                     this.createExplosion(width/2, height*3/4)
                     //last delayed call i promise
                    //start game scene
-                    this.time.delayedCall(4500, () => {this.scene.start('playScene')})
+                    this.time.delayedCall(3800, () => {this.scene.start('playScene')})
                 }, null, this)
             }, null, this)
         }

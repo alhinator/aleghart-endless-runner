@@ -6,7 +6,7 @@ let config = {
     width: 640,
     height:480,
     render: {pixelArt: true},
-    scene: [ Loading, MainMenu ]
+    scene: [ Loading, MainMenu, Play ]
 }
 let game = new Phaser.Game(config)
 

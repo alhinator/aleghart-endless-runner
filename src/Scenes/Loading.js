@@ -12,6 +12,8 @@ class Loading extends Phaser.Scene {
         //grab our logo
         this.load.image('logo', "./assets/ui/mainlogo.png")
 
+        //road
+        this.load.spritesheet('roadSheet', './assets/env/road/road_sheet.png', { frameWidth: 256, frameHeight: 256 })
 
 
         
