@@ -57,7 +57,7 @@ class MainMenu extends Phaser.Scene {
         this.anims.create({
             key: 'punch',
             frameRate: 7,
-            repeat: -1, 
+            repeat: 0, 
             frames: this.anims.generateFrameNumbers('char', {
                 start:3,
                 end:5
