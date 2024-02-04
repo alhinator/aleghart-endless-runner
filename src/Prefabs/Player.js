@@ -11,9 +11,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //this.runSound = scene.sound.add('')
 
 
-        this.POS_LEFT = width/3 - this.width/5
-        this.POS_RIGHT = width*2/3 + this.width/5
-        this.POS_RUN = height/2 - this.height/6
+        this.POS_LEFT = width/3 - this.width/6
+        this.POS_RIGHT = width*2/3 + this.width/6
+        this.POS_RUN = height/2 - this.height/8
         this.POS_SLIDE = height/2 + this.height/5
         this.target_pos = ['right', 'run']
         this.actionable = {slide: true, punch: true}
@@ -49,9 +49,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     update(){
         //keypress
-        //rules: you can move lr if you are not currently sliding, but you may do any action mid-movement.
-        //you can slide if you arent sliding, but you can slide during movement or cancel a punch
-        //you can punch if you arent punching, but you can punch during movement or cancel a slide
+        //rules: you can move lr if you are not currently sliding; you may do any action mid-movement.
+        //you can't slide if you are sliding, but you can slide during movement or cancel a punch
+        //you can't punch if you are punching, but you can punch during movement or cancel a slide
         //there is a delay between actions of the same type (eg slide -> slide), and the delay carries regardless of action cancels
         //you cannot slide for 250ms after your last slide ends.
         //you cannot punch for 300ms  after your last punch ends.
