@@ -6,6 +6,12 @@ let config = {
     width: 640,
     height:480,
     render: {pixelArt: true},
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
     scene: [ Loading, MainMenu, Play ]
 }
 let game = new Phaser.Game(config)

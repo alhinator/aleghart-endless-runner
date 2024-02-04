@@ -47,8 +47,8 @@ class MainMenu extends Phaser.Scene {
         })
         this.anims.create({
             key: 'slide',
-            frameRate: 0,
-            repeat: -1, 
+            frameRate: 10,
+            repeat: 3, 
             frames: this.anims.generateFrameNumbers('char', {
                 start:2,
                 end:2
@@ -82,13 +82,13 @@ class MainMenu extends Phaser.Scene {
         this.pressPlay = this.add.text(width/2,height*3/4, "Press Space to Play", fontconf).setOrigin(0.5,0.5)
         this.pressPlay.alphaDirection = -1
 
-
-
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         keySLIDE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyPUNCH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+        
 
         //particle emitters
         //code adapted from https://labs.phaser.io/edit.html?src=src\game%20objects\particle%20emitter\explode%20emitter.js
@@ -123,7 +123,7 @@ class MainMenu extends Phaser.Scene {
             
         }
 
-        if (Phaser.Input.Keyboard.JustDown(keyPUNCH)) {
+        if (!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyPUNCH)) {
             this.animatingStart = true
             //console.log('gra')
             //animate break
