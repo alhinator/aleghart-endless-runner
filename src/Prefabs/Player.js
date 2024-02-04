@@ -49,17 +49,18 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
     update(){
         //keypress
-        //rules: you can move lr if you are not currently actioning, but you may action mid-movement.
+        //rules: you can move lr if you are not currently sliding, but you may do any action mid-movement.
         //you can slide if you arent sliding, but you can slide during movement or cancel a punch
         //you can punch if you arent punching, but you can punch during movement or cancel a slide
         //there is a delay between actions of the same type (eg slide -> slide), and the delay carries regardless of action cancels
-        //you cannot slide for 0.25 seconds after your last slide ends.
-        if(this.actionState == 'running' && Phaser.Input.Keyboard.JustDown(keyLEFT)){
-            console.log(" L pressed")
+        //you cannot slide for 250ms after your last slide ends.
+        //you cannot punch for 300ms  after your last punch ends.
+        if(this.actionState != 'sliding' && Phaser.Input.Keyboard.JustDown(keyLEFT)){
+            //console.log(" L pressed")
             this.target_pos[0] = 'left'
         }
-        if(this.actionState == 'running' && Phaser.Input.Keyboard.JustDown(keyRIGHT)){
-            console.log(" R pressed")
+        if(this.actionState != 'sliding' && Phaser.Input.Keyboard.JustDown(keyRIGHT)){
+            //console.log(" R pressed")
             this.target_pos[0] = 'right'
         }
         if(this.actionable.slide && Phaser.Input.Keyboard.JustDown(keySLIDE)){
@@ -69,7 +70,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
             this.play('slide')
             this.on('animationcomplete', () => {
-                console.log('done sliding')
+                //console.log('done sliding')
                 this.play('running')
                 this.target_pos[1] = 'run'
                 this.actionState = 'running'
@@ -77,17 +78,17 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             })
         }
         if(this.actionable.punch && Phaser.Input.Keyboard.JustDown(keyPUNCH)){
-            this.actionable.punch = true
+            this.actionable.punch = false
             this.actionState = 'punching'
             this.target_pos[1] = 'run'
 
             this.play('punch')
             this.on('animationcomplete', () => {
-                console.log('done punching')
+                //console.log('done punching')
                 this.play('running')
                 this.target_pos[1] = 'run'
                 this.actionState = 'running'
-                this.scene.time.delayedCall(250, () => {this.actionable.punch = true}, null, this)
+                this.scene.time.delayedCall(300, () => {this.actionable.punch = true}, null, this)
             })
         }
         //move
