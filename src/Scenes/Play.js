@@ -6,10 +6,14 @@ class Play extends Phaser.Scene {
 
 
     preload(){
+
     }
 
     init(){
+        this.spawn_timer_max = 1000
+        this.spawn_timer = this.spawn_timer_max
 
+        this.gameOver = false
     }
 
 
@@ -49,9 +53,11 @@ class Play extends Phaser.Scene {
 
         //create delayed call to begin spawning obstacles
         this.spawning = false
-        this.time.delayedCall(3000, () => {this.spawning = true})
+        this.time.delayedCall(3000, () => {this.spawning = true; this.createObby()})
 
         this.cameras.main.setBackgroundColor(0x094e67)
+
+        this.obstacles = []
     }
 
     update(){
@@ -74,7 +80,26 @@ class Play extends Phaser.Scene {
             this.runner.update()
         }
 
-        
+        if(!this.gameOver){ //if game not over
+            //move obstacles up
+            for(let i in this.obstacles){
+                let obj = this.obstacles[i]
+                if(!obj) { continue}
+                if(obj.movingUp){
+                    obj.y -= 3
+               } else { 
+                    obj.y += 3
+               }
+
+               if(obj.y <= height/2 - obj.height/5) { obj.movingUp = false; obj.depth = 1}
+               if(obj.y >= height + obj.height * 1.5) {
+                let temp = obj
+                this.obstacles.splice(i, 1)
+                obj.destroy()
+               }
+
+            }
+        }
 
 
 
@@ -84,6 +109,24 @@ class Play extends Phaser.Scene {
 
 
     gameOver(){
+        this.gameOver = true
         this.road.stop()
+        this.spawning = false
+    }
+
+
+    createObby(){
+        if (!this.spawning){
+            return
+        }
+        let temp = Obstacle.createNewObstacle(this)
+        temp.setDepth(4)
+        this.obstacles.push(temp)
+        console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
+        console.log(this.obstacles)
+
+
+
+        this.time.delayedCall(this.spawn_timer, () => {this.createObby()})
     }
 }

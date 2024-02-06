@@ -21,6 +21,12 @@ class MainMenu extends Phaser.Scene {
         this.load.image('smoke', './assets/env/smoke.png')
 
 
+        //preload cop car & streetlights
+        this.load.spritesheet('copSheet', './assets/env/cop/cop_sheet.png', { frameWidth: 256, frameHeight: 256 })
+        this.load.image('lightBack', './assets/env/light_backside.png', {frameWidth:256, frameHeight:256})
+        this.load.image('lightFront', './assets/env/light_front.png', {frameWidth:256, frameHeight:256})
+        
+
     }
 
     create(){
