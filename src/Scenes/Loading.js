@@ -34,6 +34,17 @@ class Loading extends Phaser.Scene {
         this.load.image('tomato', './assets/fruits/tomato.png', {width:32, height:32})
 
        
+        //audio
+        this.load.audio('bgm', './assets/audio/Chromatic Blitz - Instrumental.mp3')
+        //background music is sourced from Akira Sora, "Chromatic Blitz (Instrumental) - Goby Brine" under an Attribution 4.0 International License
+        //https://creativecommons.org/licenses/by/4.0/
+
+        this.load.audio('chomp', './assets/audio/chomp.mp3')
+        this.load.audio('grunt', './assets/audio/grunt.mp3')
+        this.load.audio('running', './assets/audio/running.mp3')
+        this.load.audio('slide', './assets/audio/slide.mp3')
+        this.load.audio('splat', './assets/audio/splat.mp3')
+
 
         
         //console.log("break")

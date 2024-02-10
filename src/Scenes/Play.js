@@ -60,6 +60,12 @@ class Play extends Phaser.Scene {
         Fruit.FRUITS = []
         this.time.delayedCall(5000, () => {this.createFruit()})
 
+        //background music
+        this.BGM = this.sound.add('bgm')
+        this.BGM.seek = 0
+        this.BGM.setVolume(0.5)
+        this.BGM.loop = true
+        this.BGM.play()
 
         
         this.cameras.main.setBackgroundColor(0x094e67)
@@ -93,6 +99,7 @@ class Play extends Phaser.Scene {
         if(this.gameOver) { 
             if (Phaser.Input.Keyboard.JustDown(keyPUNCH)){
                 //this.scene.restart()
+                this.BGM.stop()
                 this.scene.start('mainMenuScene')
             } else {
                 return
@@ -144,6 +151,7 @@ class Play extends Phaser.Scene {
         this.gameOver = true
         this.road.stop()
         this.spawning = false 
+        this.BGM.setVolume(0.3)
 
         //stop obstacle anims
         for(let i in this.obstacles){

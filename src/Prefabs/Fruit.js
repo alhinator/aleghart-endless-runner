@@ -57,7 +57,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
                 }
             }
             _fruit.destroy()
-            //_runner.addPoints(1)
+            _runner.fruitGet()
     }
 
     static speedUp(){

@@ -116,7 +116,10 @@ class MainMenu extends Phaser.Scene {
         keySLIDE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyPUNCH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
-        
+        //for intro cutscene
+        this.runSound = this.sound.add('running').setVolume(2)
+        this.gruntSound = this.sound.add('grunt')
+
 
         //particle emitters
         //code adapted from https://labs.phaser.io/edit.html?src=src\game%20objects\particle%20emitter\explode%20emitter.js
@@ -152,6 +155,7 @@ class MainMenu extends Phaser.Scene {
         }
 
         if (!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyPUNCH)) {
+            this.gruntSound.play()
             this.animatingStart = true
             //console.log('gra')
             //animate break
@@ -164,11 +168,13 @@ class MainMenu extends Phaser.Scene {
                 this.time.delayedCall(500, () => {
                     this.wall.setTexture('wallBr3')   
                     this.runningDown = true
+                    this.runSound.loop = true
+                    this.runSound.play()
                     this.charTest.play('running')
                     this.createExplosion(width/2, height*3/4)
                     //last delayed call i promise
                    //start game scene
-                    this.time.delayedCall(3800, () => {this.scene.start('playScene')})
+                    this.time.delayedCall(3800, () => {this.runSound.stop() ; this.scene.start('playScene')})
                 }, null, this)
             }, null, this)
         }

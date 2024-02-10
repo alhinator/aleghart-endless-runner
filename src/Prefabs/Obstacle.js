@@ -15,6 +15,8 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
         this.body.setImmovable(true)
         this.disableBody(false, false)
 
+        this.copGong = scene.sound.add('gong')
+
         if (this.texture.key == 'copSheet'){ this.anims.play('cop-flashing')}
 
     }

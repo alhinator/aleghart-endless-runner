@@ -8,7 +8,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.actionState = 'running'
 
-        //this.runSound = scene.sound.add('')
+        this.runSound = scene.sound.add('running').setVolume(2)
+        this.slideSound = scene.sound.add('slide')
+        this.deathSound = scene.sound.add('splat')
+        this.gruntSound = scene.sound.add('grunt')
+        this.fruitSound = scene.sound.add('chomp').setVolume(0.5)
 
 
         this.POS_LEFT = width/3 //- this.width/6
@@ -64,6 +68,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         if(this.actionState != 'sliding' && Phaser.Input.Keyboard.JustDown(keyRIGHT)){
             //console.log(" R pressed")
             this.target_pos[0] = 'right'
+
         }
         if(this.actionable.slide && Phaser.Input.Keyboard.JustDown(keySLIDE)){
             this.actionable.slide = false
@@ -71,6 +76,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.target_pos[1] = 'slide'
 
             this.play('slide')
+            this.runSound.stop()
+            this.slideSound.play()
+            this.gruntSound.play()
             this.on('animationcomplete', () => {
                 //console.log('done sliding')
                 this.play('running')
@@ -83,6 +91,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.actionable.punch = false
             this.actionState = 'punching'
             this.target_pos[1] = 'run'
+            this.gruntSound.play()
 
             this.play('punch')
             this.on('animationcomplete', () => {
@@ -102,6 +111,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             case 'run': this.returnRun(); break;
             case 'slide': this.slideSlide(); break;
         }
+        if(this.actionState == 'running' && !this.runSound.isPlaying) { this.runSound.play()}
 
         let rvar = {}
         if (this.actionState == 'splat') {
@@ -118,7 +128,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         return this.actionState
     }
 
+    fruitGet(){
+        //add points
+        this.fruitSound.play()
+    }
+
     splatify(){
+        this.deathSound.play()
         this.anims.stop()
         this.setTexture('splat')
         this.actionState = ('splat')
