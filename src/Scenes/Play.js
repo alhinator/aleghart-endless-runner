@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
     }
 
     init(){
-        this.spawn_timer_max = 1000
+        this.spawn_timer_max = 3000
         this.spawn_timer = this.spawn_timer_max
 
         this.gameOver = false
@@ -55,12 +55,49 @@ class Play extends Phaser.Scene {
         this.spawning = false
         this.time.delayedCall(3000, () => {this.spawning = true; this.createObby()})
 
+        //create delated call to spawn fruit chains
+        //and reset fruit array
+        Fruit.FRUITS = []
+        this.time.delayedCall(5000, () => {this.createFruit()})
+
+
+        
         this.cameras.main.setBackgroundColor(0x094e67)
 
         this.obstacles = []
+
+
+        let fontconf = {
+            fontFamily: 'GangOfThree', 
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'center',
+            padding: {
+              top: 5,
+              bottom: 5,
+              left:3, 
+              right:3
+            },
+          }
+        //text
+        this.restart = this.add.text(width/2,height/2, "GAME OVER!", fontconf).setOrigin(0.5,0.5).setDepth(6)
+        this.restart2 = this.add.text(width/2,height*2/3, "Press Space to Return to Main Menu", fontconf).setOrigin(0.5,0.5).setDepth(6)
+        this.restart.setVisible(false)
+        this.restart2.setVisible(false)
+        //console.log(this.restart.text)
+
     }
 
     update(){
+        if(this.gameOver) { 
+            if (Phaser.Input.Keyboard.JustDown(keyPUNCH)){
+                //this.scene.restart()
+                this.scene.start('mainMenuScene')
+            } else {
+                return
+            }
+        }
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){
@@ -77,7 +114,10 @@ class Play extends Phaser.Scene {
                 this.runner.introGlide = false
             }
         } else { //runner should have control over its own body now.
-            this.runner.update()
+            let m = this.runner.update()
+            if (m.gameOver){ 
+                this.gameOverFunc()
+            }
         }
 
         if(!this.gameOver){ //if game not over
@@ -85,20 +125,11 @@ class Play extends Phaser.Scene {
             for(let i in this.obstacles){
                 let obj = this.obstacles[i]
                 if(!obj) { continue}
-                if(obj.movingUp){
-                    obj.y -= 3
-               } else { 
-                    obj.y += 3
-               }
-
-               if(obj.y <= height/2 - obj.height/5) { obj.movingUp = false; obj.depth = 1}
-               if(obj.y >= height + obj.height * 1.5) {
-                let temp = obj
-                this.obstacles.splice(i, 1)
-                obj.destroy()
-               }
-
+                obj.update(this.obstacles, i)
             }
+
+            //update fruits
+            Fruit.tick()
         }
 
 
@@ -108,10 +139,23 @@ class Play extends Phaser.Scene {
 
 
 
-    gameOver(){
+    gameOverFunc(){
+        console.log('game over!')
         this.gameOver = true
         this.road.stop()
-        this.spawning = false
+        this.spawning = false 
+
+        //stop obstacle anims
+        for(let i in this.obstacles){
+            let obj = this.obstacles[i]
+            if(!obj) { continue}
+            obj.anims.stop()
+        }
+
+        //restart texts
+        this.restart.setVisible(true)
+        this.restart2.setVisible(true)
+        
     }
 
 
@@ -122,11 +166,26 @@ class Play extends Phaser.Scene {
         let temp = Obstacle.createNewObstacle(this)
         temp.setDepth(4)
         this.obstacles.push(temp)
-        console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
-        console.log(this.obstacles)
+        //console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
+        //console.log(this.obstacles)
+        //create a collider 
+        this.physics.add.collider(this.runner, temp, Obstacle.handleCollision, null, this)
 
 
-
+        
         this.time.delayedCall(this.spawn_timer, () => {this.createObby()})
+        if (this.spawn_timer >= 1000) {
+            this.spawn_timer -= 50
+            if (this.spawn_timer <= 1000) {Obstacle.speedUp(); Fruit.speedUp()}
+        } 
+    }
+
+    createFruit(){
+        if (!this.spawning){
+            return
+        }
+        Fruit.createFruitArray(this, this.runner) //creates an array of fruit. 
+        this.time.delayedCall(this.spawn_timer/2, () => {this.createFruit()})
+
     }
 }

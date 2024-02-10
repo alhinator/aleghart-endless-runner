@@ -12,13 +12,7 @@ class MainMenu extends Phaser.Scene {
     }
     preload(){
         console.log('in mm preload')
-         //first, load all assets that will be used in the menu scene
-         this.load.image('wally', "./assets/env/facade.png")
-         this.load.image('wallBr1', "./assets/env/facade_smash_1.png")
-         this.load.image('wallBr2', "./assets/env/facade_smash_2.png")
-         this.load.image('wallBr3', "./assets/env/facade_smash_3.png")
-
-        this.load.image('smoke', './assets/env/smoke.png')
+        
 
 
         //preload cop car & streetlights
@@ -39,6 +33,7 @@ class MainMenu extends Phaser.Scene {
         this.add.rectangle(width - this.BORDER_W,0,this.BORDER_W, 2*height ,0x444444).setOrigin(0,0)
 
          this.charTest = this.add.sprite(width/2, height, 'char').setOrigin(0.5, 1).setAlpha(0).setFrame(0)
+
         // this.charTest.play('punch')
 
         //create anims
@@ -69,6 +64,29 @@ class MainMenu extends Phaser.Scene {
                 end:5
             })
         })
+
+
+        //make cop car anims
+
+        this.anims.create({
+            key: 'cop-flashing',
+            frameRate: 8, 
+            repeat: -1, 
+            frames: this.anims.generateFrameNumbers('copSheet', {
+                start:0,
+                end:1
+            })
+        })
+
+        this.anims.create({
+            key: 'cop-bust',
+            frameRate: 2, 
+            repeat: 0, 
+            frames: this.anims.generateFrameNumbers('copSheet', {
+                start:2,
+                end:3
+            })
+        })
         
         this.logo = this.add.sprite(width/2, height/3 + height*1/8, 'logo').setOrigin(0.5, 0.5).setScale(1.5)
 
@@ -84,9 +102,13 @@ class MainMenu extends Phaser.Scene {
               left:3, 
               right:3
             },
-          }
+        }
         this.pressPlay = this.add.text(width/2,height*3/4, "Press Space to Play", fontconf).setOrigin(0.5,0.5)
         this.pressPlay.alphaDirection = -1
+
+        fontconf.fontFamily = 'Papyrus'
+        fontconf.fontSize = '14px'
+        this.directions = this.add.text(width/2,height*5/6 + 20, "use ← and → to change lanes.\n[space] to punch, ↓ to slide.", fontconf).setOrigin(0.5,0.5)
 
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -135,6 +157,7 @@ class MainMenu extends Phaser.Scene {
             //animate break
             this.pressPlay.setAlpha(0)
             this.logo.setAlpha(0)
+            this.directions.setAlpha(0)
             this.wall.setTexture('wallBr1')
             this.time.delayedCall(500, () => {
                 this.wall.setTexture('wallBr2')   

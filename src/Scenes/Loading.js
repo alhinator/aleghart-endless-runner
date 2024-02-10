@@ -8,6 +8,7 @@ class Loading extends Phaser.Scene {
 
          //load character sprites
          this.load.spritesheet('char', './assets/char/char_sp.png', { frameWidth: 247, frameHeight: 215 })
+         this.load.image('splat', './assets/char/ketchup.png', {width:256, height:256})
 
         //grab our logo
         this.load.image('logo', "./assets/ui/mainlogo.png")
@@ -16,8 +17,25 @@ class Loading extends Phaser.Scene {
         this.load.spritesheet('roadSheet', './assets/env/road/road_sheet.png', { frameWidth: 256, frameHeight: 256 })
 
 
-        
+         //first, load all assets that will be used in the menu scene
+         this.load.image('wally', "./assets/env/facade.png")
+         this.load.image('wallBr1', "./assets/env/facade_smash_1.png")
+         this.load.image('wallBr2', "./assets/env/facade_smash_2.png")
+         this.load.image('wallBr3', "./assets/env/facade_smash_3.png")
+
+        this.load.image('smoke', './assets/env/smoke.png')
+
+        //fruits
+        this.load.image('carrot', './assets/fruits/carrot.png', {width:32, height:32})
+        this.load.image('grapes', './assets/fruits/grapes.png', {width:32, height:32})
+        this.load.image('kiwi', './assets/fruits/kiwi.png', {width:32, height:32})
+        this.load.image('orange', './assets/fruits/orange.png', {width:32, height:32})
+        this.load.image('pear', './assets/fruits/pear.png', {width:32, height:32})
+        this.load.image('tomato', './assets/fruits/tomato.png', {width:32, height:32})
+
        
+
+        
         //console.log("break")
        
     }
