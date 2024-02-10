@@ -24,6 +24,15 @@ class Loading extends Phaser.Scene {
          this.load.image('wallBr3', "./assets/env/facade_smash_3.png")
 
         this.load.image('smoke', './assets/env/smoke.png')
+
+        //fruits
+        this.load.image('carrot', './assets/fruits/carrot.png', {width:32, height:32})
+        this.load.image('grapes', './assets/fruits/grapes.png', {width:32, height:32})
+        this.load.image('kiwi', './assets/fruits/kiwi.png', {width:32, height:32})
+        this.load.image('orange', './assets/fruits/orange.png', {width:32, height:32})
+        this.load.image('pear', './assets/fruits/pear.png', {width:32, height:32})
+        this.load.image('tomato', './assets/fruits/tomato.png', {width:32, height:32})
+
        
 
         

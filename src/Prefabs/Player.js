@@ -105,7 +105,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         let rvar = {}
         if (this.actionState == 'splat') {
-            this.body.destroy() 
+            this.disableBody(false, false)
             rvar.gameOver = true 
         }
 

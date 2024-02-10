@@ -1,7 +1,5 @@
 class Fruit extends Phaser.Physics.Arcade.Sprite {
-    static SPEED = 3
-
-    static FRUITS = []
+    static SPEED = 5
 
     static F_NAMES = ['carrot', 'grapes', 'kiwi', 'orange', 'pear', 'tomato']
 
@@ -19,9 +17,15 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
 
 
     }
-    tick(){
+
+    static tick(){
         //this is called every frame when not gameover
 
+        //move fruits up
+        for ( let i in Fruit.FRUITS){
+            let fr = Fruit.FRUITS[i]
+            fr.update(Fruit.FRUITS, i)
+        }
 
     }
 
@@ -35,7 +39,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
             this.y += 3
         }
         
-        if(this.y <= height/2 - this.height/2) { this.movingUp = false; this.depth = 1}
+        if(this.y <= height/2) { this.movingUp = false; this.depth = 1}
         
         if(this.y >= height + this.height * 1.5) {         
             _fruits.splice(_i, 1)
@@ -45,7 +49,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
 
     static handleCollision(_runner, _fruit){//REMEMBER THIS IS  STATIC FUNC DO NOT USE KEYWORD 'this'
             //console.log('in collision')
-            _runner.addPoints(1)
+            //_runner.addPoints(1)
     }
 
     static speedUp(){
@@ -55,14 +59,18 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
 
     static createFruitArray(scene){
         let num = Phaser.Math.Between(3, 6) //this is the number of fruits that we will create.
-        let xpos = Phaser.Math.Between(width/3, width*2/3) // the x position of this 'group' of fruits.
+        let F_XPOS = [width/3, width/2, width*2/3]
+        let xpos = F_XPOS[Phaser.Math.Between(0, F_XPOS.length-1)] // the x position of this 'group' of fruits.
         
         //create them.
-        let tempArray = []
-        for( let i = 0; i < num; i++){
-    
-            tempArray.push(new Fruit(scene, xpos, height + 64*i, ))
+        for( let i = 0; i <= num; i++){
+            let fframe = this.F_NAMES[Phaser.Math.Between(0, this.F_NAMES.length-1)]
+            let temp = new Fruit(scene, xpos, height + 64*i, fframe, 0)
+            temp.setDepth(4)
+            Fruit.FRUITS.push(temp)
+            //console.log("creating new " + fframe)
         }
+        //console.log("group over =-----")
 
     }
 }

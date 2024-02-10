@@ -55,6 +55,13 @@ class Play extends Phaser.Scene {
         this.spawning = false
         this.time.delayedCall(3000, () => {this.spawning = true; this.createObby()})
 
+        //create delated call to spawn fruit chains
+        //and reset fruit array
+        Fruit.FRUITS = []
+        this.time.delayedCall(5000, () => {this.createFruit()})
+
+
+        
         this.cameras.main.setBackgroundColor(0x094e67)
 
         this.obstacles = []
@@ -171,5 +178,14 @@ class Play extends Phaser.Scene {
             this.spawn_timer -= 50
             if (this.spawn_timer <= 1000) {Obstacle.speedUp(); Fruit.speedUp()}
         } 
+    }
+
+    createFruit(){
+        if (!this.spawning){
+            return
+        }
+        Fruit.createFruitArray(this) //creates an array of fruit. 
+        this.time.delayedCall(this.spawn_timer/2, () => {this.createFruit()})
+
     }
 }
