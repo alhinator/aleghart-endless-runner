@@ -1,5 +1,5 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite{
-
+    static SPEED = 3
     constructor(scene, x, y, texture, frame){
         //DO NOT USE CONSTRUCTOR TO CREATE NEW OBSTACLES. USE createNewObstacle INSTEAD TO GET PROPER GENERATION.
        
@@ -47,26 +47,25 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
 
 
     update(_obstacles, _i) {
-                if(this.movingUp){
-                    this.y -= 3
-               } else { 
-                if (this.collidable) { this.collidable = false}
-                else { this.disableBody(false, false) ; this.body.destroy()}
-                this.y += 3
-               }
-               //console.log(this.texture)
-               switch(this.texture.key){
-                case 'copSheet':
-                    if(this.y <= height/2) { this.movingUp = false; this.depth = 1; this.enableBody() ; this.collidable = true}
-                    break;
-                default:
-                    if(this.y <= height/2 - this.height/5) { this.movingUp = false; this.depth = 1; this.enableBody() ; this.collidable = true}
-               }
-               if(this.y >= height + this.height * 1.5) {
-                
-                _obstacles.splice(_i, 1)
-                this.destroy()
-               }
+        if(this.movingUp){
+            this.y -= Obstacle.SPEED
+        } else { 
+            if (this.collidable) { this.collidable = false}
+            else { this.disableBody(false, false) ; this.body.destroy() ; this.setTint(0xaaaaaa)}
+            this.y += 3
+        }
+        //console.log(this.texture)
+        switch(this.texture.key){
+            case 'copSheet':
+                if(this.y <= height/2) { this.movingUp = false; this.depth = 1; this.enableBody() ; this.collidable = true}
+                break;
+            default:
+                if(this.y <= height/2 - this.height/5) { this.movingUp = false; this.depth = 1; this.enableBody() ; this.collidable = true}
+        }
+        if(this.y >= height + this.height * 1.5) {         
+            _obstacles.splice(_i, 1)
+            this.destroy()
+       }
     }
 
 
@@ -88,6 +87,12 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
             console.log('splat lamp')
             _runner.splatify()
         }
+    }
+
+
+    static speedUp(){
+        console.log("speeding up obbys!")
+        SPEED += 1
     }
     
 }

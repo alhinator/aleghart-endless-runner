@@ -102,9 +102,13 @@ class MainMenu extends Phaser.Scene {
               left:3, 
               right:3
             },
-          }
+        }
         this.pressPlay = this.add.text(width/2,height*3/4, "Press Space to Play", fontconf).setOrigin(0.5,0.5)
         this.pressPlay.alphaDirection = -1
+
+        fontconf.fontFamily = 'Papyrus'
+        fontconf.fontSize = '14px'
+        this.directions = this.add.text(width/2,height*5/6 + 20, "use ← and → to change lanes.\n[space] to punch, ↓ to slide.", fontconf).setOrigin(0.5,0.5)
 
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -153,6 +157,7 @@ class MainMenu extends Phaser.Scene {
             //animate break
             this.pressPlay.setAlpha(0)
             this.logo.setAlpha(0)
+            this.directions.setAlpha(0)
             this.wall.setTexture('wallBr1')
             this.time.delayedCall(500, () => {
                 this.wall.setTexture('wallBr2')   

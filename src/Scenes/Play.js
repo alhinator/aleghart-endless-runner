@@ -83,7 +83,14 @@ class Play extends Phaser.Scene {
     }
 
     update(){
-        if(this.gameOver) { return}
+        if(this.gameOver) { 
+            if (Phaser.Input.Keyboard.JustDown(keyPUNCH)){
+                //this.scene.restart()
+                this.scene.start('mainMenuScene')
+            } else {
+                return
+            }
+        }
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){
@@ -113,6 +120,9 @@ class Play extends Phaser.Scene {
                 if(!obj) { continue}
                 obj.update(this.obstacles, i)
             }
+
+            //update fruits
+            Fruit.tick()
         }
 
 
@@ -149,13 +159,17 @@ class Play extends Phaser.Scene {
         let temp = Obstacle.createNewObstacle(this)
         temp.setDepth(4)
         this.obstacles.push(temp)
-        console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
-        console.log(this.obstacles)
+        //console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
+        //console.log(this.obstacles)
         //create a collider 
         this.physics.add.collider(this.runner, temp, Obstacle.handleCollision, null, this)
 
 
-
+        
         this.time.delayedCall(this.spawn_timer, () => {this.createObby()})
+        if (this.spawn_timer >= 1000) {
+            this.spawn_timer -= 50
+            if (this.spawn_timer <= 1000) {Obstacle.speedUp(); Fruit.speedUp()}
+        } 
     }
 }
