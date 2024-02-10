@@ -78,6 +78,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
         if (type == 'cop' && _runner.getAction() == 'punching'){
             console.log("destroyed")
             _obs.anims.play('cop-bust')
+            _obs.copGong.play()
         } else if (type == 'cop' && _runner.getAction() != 'punching'){
             console.log('splat car')
             _runner.splatify()
@@ -94,7 +95,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
 
     static speedUp(){
         console.log("speeding up obbys!")
-        SPEED += 1
+        Obstacle.SPEED += 1
     }
     
 }

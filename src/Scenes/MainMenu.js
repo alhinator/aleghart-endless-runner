@@ -119,6 +119,7 @@ class MainMenu extends Phaser.Scene {
         //for intro cutscene
         this.runSound = this.sound.add('running').setVolume(2)
         this.gruntSound = this.sound.add('grunt')
+        this.gongSound = this.sound.add('gong')
 
 
         //particle emitters
@@ -156,6 +157,7 @@ class MainMenu extends Phaser.Scene {
 
         if (!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyPUNCH)) {
             this.gruntSound.play()
+            this.gongSound.play()
             this.animatingStart = true
             //console.log('gra')
             //animate break
@@ -164,6 +166,7 @@ class MainMenu extends Phaser.Scene {
             this.directions.setAlpha(0)
             this.wall.setTexture('wallBr1')
             this.time.delayedCall(500, () => {
+                this.gongSound.play()
                 this.wall.setTexture('wallBr2')   
                 this.time.delayedCall(500, () => {
                     this.wall.setTexture('wallBr3')   

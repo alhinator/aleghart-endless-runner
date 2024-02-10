@@ -44,6 +44,7 @@ class Loading extends Phaser.Scene {
         this.load.audio('running', './assets/audio/running.mp3')
         this.load.audio('slide', './assets/audio/slide.mp3')
         this.load.audio('splat', './assets/audio/splat.mp3')
+        this.load.audio('gong', './assets/audio/gong.mp3')
 
 
         
