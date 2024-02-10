@@ -48,7 +48,15 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
     }
 
     static handleCollision(_runner, _fruit){//REMEMBER THIS IS  STATIC FUNC DO NOT USE KEYWORD 'this'
-            //console.log('in collision')
+            console.log('get fruit')
+            //first, need to safely destroy fruit
+            for(let i in Fruit.FRUITS){ //remove from array
+                if (Fruit.FRUITS[i] == _fruit){
+                    Fruit.FRUITS.splice(i, 1)
+                    console.log("successfully spliced")
+                }
+            }
+            _fruit.destroy()
             //_runner.addPoints(1)
     }
 
@@ -57,7 +65,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
         SPEED += 1
     }
 
-    static createFruitArray(scene){
+    static createFruitArray(scene, _runner){
         let num = Phaser.Math.Between(3, 6) //this is the number of fruits that we will create.
         let F_XPOS = [width/3, width/2, width*2/3]
         let xpos = F_XPOS[Phaser.Math.Between(0, F_XPOS.length-1)] // the x position of this 'group' of fruits.
@@ -68,6 +76,8 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
             let temp = new Fruit(scene, xpos, height + 64*i, fframe, 0)
             temp.setDepth(4)
             Fruit.FRUITS.push(temp)
+            scene.physics.add.collider(_runner, temp, Fruit.handleCollision, null, scene)
+
             //console.log("creating new " + fframe)
         }
         //console.log("group over =-----")

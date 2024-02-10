@@ -184,7 +184,7 @@ class Play extends Phaser.Scene {
         if (!this.spawning){
             return
         }
-        Fruit.createFruitArray(this) //creates an array of fruit. 
+        Fruit.createFruitArray(this, this.runner) //creates an array of fruit. 
         this.time.delayedCall(this.spawn_timer/2, () => {this.createFruit()})
 
     }
