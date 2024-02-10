@@ -12,13 +12,7 @@ class MainMenu extends Phaser.Scene {
     }
     preload(){
         console.log('in mm preload')
-         //first, load all assets that will be used in the menu scene
-         this.load.image('wally', "./assets/env/facade.png")
-         this.load.image('wallBr1', "./assets/env/facade_smash_1.png")
-         this.load.image('wallBr2', "./assets/env/facade_smash_2.png")
-         this.load.image('wallBr3', "./assets/env/facade_smash_3.png")
-
-        this.load.image('smoke', './assets/env/smoke.png')
+        
 
 
         //preload cop car & streetlights
@@ -39,6 +33,7 @@ class MainMenu extends Phaser.Scene {
         this.add.rectangle(width - this.BORDER_W,0,this.BORDER_W, 2*height ,0x444444).setOrigin(0,0)
 
          this.charTest = this.add.sprite(width/2, height, 'char').setOrigin(0.5, 1).setAlpha(0).setFrame(0)
+
         // this.charTest.play('punch')
 
         //create anims
@@ -67,6 +62,29 @@ class MainMenu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('char', {
                 start:3,
                 end:5
+            })
+        })
+
+
+        //make cop car anims
+
+        this.anims.create({
+            key: 'cop-flashing',
+            frameRate: 8, 
+            repeat: -1, 
+            frames: this.anims.generateFrameNumbers('copSheet', {
+                start:0,
+                end:1
+            })
+        })
+
+        this.anims.create({
+            key: 'cop-bust',
+            frameRate: 2, 
+            repeat: 0, 
+            frames: this.anims.generateFrameNumbers('copSheet', {
+                start:2,
+                end:3
             })
         })
         

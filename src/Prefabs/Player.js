@@ -11,8 +11,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //this.runSound = scene.sound.add('')
 
 
-        this.POS_LEFT = width/3 - this.width/6
-        this.POS_RIGHT = width*2/3 + this.width/6
+        this.POS_LEFT = width/3 //- this.width/6
+        this.POS_RIGHT = width*2/3 //+ this.width/6
         this.POS_RUN = height/2 - this.height/8
         this.POS_SLIDE = height/2 + this.height/5
         this.target_pos = ['right', 'run']
@@ -20,6 +20,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
 
         this.body.setCircle(this.width/4,this.width/4,this.height/6)
+        this.body.setImmovable(true)
+
     }
 
 
@@ -102,5 +104,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }
 
 
+    }
+
+    getAction(){
+        return this.actionState
     }
 }

@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
     }
 
     init(){
-        this.spawn_timer_max = 1000
+        this.spawn_timer_max = 3000
         this.spawn_timer = this.spawn_timer_max
 
         this.gameOver = false
@@ -58,6 +58,8 @@ class Play extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(0x094e67)
 
         this.obstacles = []
+
+
     }
 
     update(){
@@ -85,19 +87,7 @@ class Play extends Phaser.Scene {
             for(let i in this.obstacles){
                 let obj = this.obstacles[i]
                 if(!obj) { continue}
-                if(obj.movingUp){
-                    obj.y -= 3
-               } else { 
-                    obj.y += 3
-               }
-
-               if(obj.y <= height/2 - obj.height/5) { obj.movingUp = false; obj.depth = 1}
-               if(obj.y >= height + obj.height * 1.5) {
-                let temp = obj
-                this.obstacles.splice(i, 1)
-                obj.destroy()
-               }
-
+                obj.update(this.obstacles, i)
             }
         }
 
@@ -124,6 +114,8 @@ class Play extends Phaser.Scene {
         this.obstacles.push(temp)
         console.log(`recieved new obstacle: x:${temp.x}, y:${temp.y}, ${temp.texture}, ${temp.frame}`)
         console.log(this.obstacles)
+        //create a collider 
+        this.physics.add.collider(this.runner, temp, Obstacle.handleCollision, null, this)
 
 
 
