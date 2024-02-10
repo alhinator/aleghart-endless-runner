@@ -103,10 +103,24 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             case 'slide': this.slideSlide(); break;
         }
 
+        let rvar = {}
+        if (this.actionState == 'splat') {
+            this.body.destroy() 
+            rvar.gameOver = true 
+        }
+
+        return rvar
+
 
     }
 
     getAction(){
         return this.actionState
+    }
+
+    splatify(){
+        this.anims.stop()
+        this.setTexture('splat')
+        this.actionState = ('splat')
     }
 }

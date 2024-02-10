@@ -60,9 +60,30 @@ class Play extends Phaser.Scene {
         this.obstacles = []
 
 
+        let fontconf = {
+            fontFamily: 'GangOfThree', 
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'center',
+            padding: {
+              top: 5,
+              bottom: 5,
+              left:3, 
+              right:3
+            },
+          }
+        //text
+        this.restart = this.add.text(width/2,height/2, "GAME OVER!", fontconf).setOrigin(0.5,0.5).setDepth(6)
+        this.restart2 = this.add.text(width/2,height*2/3, "Press Space to Return to Main Menu", fontconf).setOrigin(0.5,0.5).setDepth(6)
+        this.restart.setVisible(false)
+        this.restart2.setVisible(false)
+        //console.log(this.restart.text)
+
     }
 
     update(){
+        if(this.gameOver) { return}
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){
@@ -79,7 +100,10 @@ class Play extends Phaser.Scene {
                 this.runner.introGlide = false
             }
         } else { //runner should have control over its own body now.
-            this.runner.update()
+            let m = this.runner.update()
+            if (m.gameOver){ 
+                this.gameOverFunc()
+            }
         }
 
         if(!this.gameOver){ //if game not over
@@ -98,10 +122,23 @@ class Play extends Phaser.Scene {
 
 
 
-    gameOver(){
+    gameOverFunc(){
+        console.log('game over!')
         this.gameOver = true
         this.road.stop()
-        this.spawning = false
+        this.spawning = false 
+
+        //stop obstacle anims
+        for(let i in this.obstacles){
+            let obj = this.obstacles[i]
+            if(!obj) { continue}
+            obj.anims.stop()
+        }
+
+        //restart texts
+        this.restart.setVisible(true)
+        this.restart2.setVisible(true)
+        
     }
 
 

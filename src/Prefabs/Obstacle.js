@@ -79,13 +79,14 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
             _obs.anims.play('cop-bust')
         } else if (type == 'cop' && _runner.getAction() != 'punching'){
             console.log('splat car')
-            
+            _runner.splatify()
         }
 
         if (type == 'lamp' && _runner.getAction() == 'sliding'){
             console.log('dodged')
         } else if (type == 'lamp' && _runner.getAction() != 'sliding'){
             console.log('splat lamp')
+            _runner.splatify()
         }
     }
     
