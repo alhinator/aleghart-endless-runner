@@ -14,6 +14,8 @@ class Play extends Phaser.Scene {
         this.spawn_timer = this.spawn_timer_max
 
         this.gameOver = false
+
+        Obstacle.resetCops()
     }
 
 
@@ -25,6 +27,7 @@ class Play extends Phaser.Scene {
         player after controllable: 3
         obstacles, fruit when collideable: 4
         obstacles, fruit after collideable: 1
+        UI: 6
         */
 
         //create road
@@ -86,6 +89,20 @@ class Play extends Phaser.Scene {
               right:3
             },
           }
+
+        let scoreFont = {
+        fontFamily: 'GangOfThree', 
+        fontSize: '32px',
+        //backgroundColor: '#e62600',
+        color: '#4ca851',
+        align: 'center',
+        padding: {
+            top: 5,
+            bottom: 5,
+            left:3, 
+            right:3
+        },
+        }
         //text
         this.restart = this.add.text(width/2,height/2, "GAME OVER!", fontconf).setOrigin(0.5,0.5).setDepth(6)
         this.restart2 = this.add.text(width/2,height*2/3, "Press Space to Return to Main Menu", fontconf).setOrigin(0.5,0.5).setDepth(6)
@@ -93,9 +110,12 @@ class Play extends Phaser.Scene {
         this.restart2.setVisible(false)
         //console.log(this.restart.text)
 
+        this.scoreText = this.add.text(width/2, height/12 - 32, `Fruit Munched: ${this.runner.getScore()}   |   Cops Punched: ${Obstacle.getCops()}`, scoreFont).setOrigin(0.5, 0).setDepth(6)
+
     }
 
     update(){
+
         if(this.gameOver) { 
             if (Phaser.Input.Keyboard.JustDown(keyPUNCH)){
                 //this.scene.restart()
@@ -105,6 +125,8 @@ class Play extends Phaser.Scene {
                 return
             }
         }
+
+        this.scoreText.setText(`Fruit Munched: ${this.runner.getScore()}   |   Cops Punched: ${Obstacle.getCops()}`)
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){

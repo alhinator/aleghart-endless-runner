@@ -14,6 +14,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.gruntSound = scene.sound.add('grunt')
         this.fruitSound = scene.sound.add('chomp').setVolume(0.5)
 
+        this.score = 0
 
         this.POS_LEFT = width/3 //- this.width/6
         this.POS_RIGHT = width*2/3 //+ this.width/6
@@ -128,8 +129,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         return this.actionState
     }
 
+    getScore(){
+        return this.score
+    }
+
     fruitGet(){
-        //add points
+        this.score++
         this.fruitSound.play()
     }
 
