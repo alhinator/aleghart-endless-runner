@@ -179,6 +179,7 @@ class MainMenu extends Phaser.Scene {
 
         if(!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyESC)){
             this.creditsVisible = !this.creditsVisible
+            console.log('esc pressed')
         }
         this.credits.alpha = this.creditsVisible && !this.animatingStart ? 1 : 0
 
