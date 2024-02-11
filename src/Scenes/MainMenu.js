@@ -22,7 +22,7 @@ class MainMenu extends Phaser.Scene {
         this.load.image('lightBack', './assets/env/light_backside.png', {frameWidth:256, frameHeight:256})
         this.load.image('lightFront', './assets/env/light_front.png', {frameWidth:256, frameHeight:256})
         
-        this.load.image('logo', "./assets/ui/mainlogo.png")
+        //this.load.image('logo', "./assets/ui/mainlogo.png")
 
 
     }

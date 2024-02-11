@@ -1,4 +1,11 @@
 //Alex Leghart
+//Game Title: Fruit PUNCH
+//Approx Hours: 25-30
+
+/* Creative Tilt: 
+
+
+*/
 
 
 let config = {
