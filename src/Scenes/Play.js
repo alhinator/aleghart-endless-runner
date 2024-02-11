@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
 
 
     gameOverFunc(){
-        console.log('game over!')
+        //console.log('game over!')
         this.gameOver = true
         this.road.stop()
         this.spawning = false 

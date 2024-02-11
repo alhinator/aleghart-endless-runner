@@ -103,7 +103,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
 
 
     static speedUp(){
-        console.log("speeding up obbys!")
+        //console.log("speeding up obbys!")
         Obstacle.SPEED += 1
     }
     

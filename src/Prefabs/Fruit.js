@@ -48,12 +48,12 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
     }
 
     static handleCollision(_runner, _fruit){//REMEMBER THIS IS  STATIC FUNC DO NOT USE KEYWORD 'this'
-            console.log('get fruit')
+            //console.log('get fruit')
             //first, need to safely destroy fruit
             for(let i in Fruit.FRUITS){ //remove from array
                 if (Fruit.FRUITS[i] == _fruit){
                     Fruit.FRUITS.splice(i, 1)
-                    console.log("successfully spliced")
+                    //console.log("successfully spliced")
                 }
             }
             _fruit.destroy()
@@ -61,7 +61,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
     }
 
     static speedUp(){
-        console.log("speeding up fruits!")
+        //console.log("speeding up fruits!")
         SPEED += 1
     }
 

@@ -4,7 +4,7 @@ class Loading extends Phaser.Scene {
     }
 
     preload(){
-        console.log('in Loading preload')
+        //console.log('in Loading preload')
 
          //load character sprites
          this.load.spritesheet('char', './assets/char/char_sp.png', { frameWidth: 247, frameHeight: 215 })

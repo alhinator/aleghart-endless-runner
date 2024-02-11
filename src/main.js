@@ -16,7 +16,8 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            //debug: true
+            debug: false //dbug now false for live build
         }
     },
     scene: [ Loading, MainMenu, Play ]
