@@ -116,7 +116,7 @@ class MainMenu extends Phaser.Scene {
         "\nSound effects by aleghart" +
         "\nBackground music is sourced from Akira Sora;" +
         "\n\"Chromatic Blitz (Instrumental) - Goby Brine\"" +
-        "\nunder an Attribution 4.0 International License: \n\thttps://creativecommons.org/licenses/by/4.0/" + 
+        "\nunder an Attribution 4.0 International License: \nhttps://creativecommons.org/licenses/by/4.0/" + 
         "\n'Gang of Three' font free for commercial use from" + 
         "\nhttps://fontmeme.com/fonts/gang-of-three-font/" + 
         "\n\nThis project is for academic purposes only.", fontconf).setOrigin(0.5,0)
