@@ -1,5 +1,6 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite{
     static SPEED = 3
+    static cops = 0
     constructor(scene, x, y, texture, frame){
         //DO NOT USE CONSTRUCTOR TO CREATE NEW OBSTACLES. USE createNewObstacle INSTEAD TO GET PROPER GENERATION.
        
@@ -70,24 +71,32 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
        }
     }
 
+    static getCops(){
+        return Obstacle.cops
+    }
+    static resetCops(){
+        Obstacle.cops = 0
+    }
 
     static handleCollision(_runner, _obs){//REMEMBER THIS IS  STATIC FUNC DO NOT USE KEYWORD 'this'
         //console.log('in collision')
         let type = _obs.texture.key == 'copSheet' ? 'cop' : 'lamp'
 
         if (type == 'cop' && _runner.getAction() == 'punching'){
-            console.log("destroyed")
+            //console.log("destroyed")
             _obs.anims.play('cop-bust')
             _obs.copGong.play()
+            Obstacle.cops++
+            _obs.body.destroy()
         } else if (type == 'cop' && _runner.getAction() != 'punching'){
-            console.log('splat car')
+            //console.log('splat car')
             _runner.splatify()
         }
 
         if (type == 'lamp' && _runner.getAction() == 'sliding'){
-            console.log('dodged')
+            //console.log('dodged')
         } else if (type == 'lamp' && _runner.getAction() != 'sliding'){
-            console.log('splat lamp')
+            //console.log('splat lamp')
             _runner.splatify()
         }
     }

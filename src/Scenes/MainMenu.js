@@ -9,6 +9,8 @@ class MainMenu extends Phaser.Scene {
         this.animatingStart = false
         this.runningDown = false
 
+        this.creditsVisible = false
+
     }
     preload(){
         console.log('in mm preload')
@@ -28,11 +30,6 @@ class MainMenu extends Phaser.Scene {
     create(){
         //facade
         this.wall = this.add.tileSprite(0,0,640,480,'wally').setOrigin(0,0)
-
-
-        //create window frame
-        this.add.rectangle(0,0,this.BORDER_W, 2*height ,0x444444).setOrigin(0,0)
-        this.add.rectangle(width - this.BORDER_W,0,this.BORDER_W, 2*height ,0x444444).setOrigin(0,0)
 
          this.charTest = this.add.sprite(width/2, height, 'char').setOrigin(0.5, 1).setAlpha(0).setFrame(0)
 
@@ -107,16 +104,41 @@ class MainMenu extends Phaser.Scene {
         }
         this.pressPlay = this.add.text(width/2,height*3/4, "Press Space to Play", fontconf).setOrigin(0.5,0.5)
         this.pressPlay.alphaDirection = -1
+        fontconf.fontSize = '16px'
+        fontconf.padding = {
+            top: 30,
+            bottom: 30,
+            left:30, 
+            right:30}
+        this.credits = this.add.text(width/2, height/6,
+        "'Shitty fruit' assets from Nathan Altice" +
+        "\nAll other visual assets by aleghart" +
+        "\nSound effects by aleghart" +
+        "\nBackground music is sourced from Akira Sora;" +
+        "\n\"Chromatic Blitz (Instrumental) - Goby Brine\"" +
+        "\nunder an Attribution 4.0 International License: \n\thttps://creativecommons.org/licenses/by/4.0/" + 
+        "\n'Gang of Three' font free for commercial use from" + 
+        "\nhttps://fontmeme.com/fonts/gang-of-three-font/" + 
+        "\n\nThis project is for academic purposes only.", fontconf).setOrigin(0.5,0)
+
 
         fontconf.fontFamily = 'Papyrus'
         fontconf.fontSize = '14px'
+        fontconf.padding = {
+            top: 5,
+            bottom: 5,
+            left:3, 
+            right:3
+          }
         this.directions = this.add.text(width/2,height*5/6 + 20, "use ← and → to change lanes.\n[space] to punch, ↓ to slide.", fontconf).setOrigin(0.5,0.5)
+        this.creditKey = this.add.text(0,height, "Press [esc] to view credits", fontconf).setOrigin(0,1)
 
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         keySLIDE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyPUNCH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
 
         //for intro cutscene
         this.runSound = this.sound.add('running').setVolume(2)
@@ -157,6 +179,12 @@ class MainMenu extends Phaser.Scene {
             
         }
 
+        if(!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.creditsVisible = !this.creditsVisible
+        }
+        this.credits.alpha = this.creditsVisible && !this.animatingStart ? 1 : 0
+
+
         if (!this.animatingStart && Phaser.Input.Keyboard.JustDown(keyPUNCH)) {
             this.gruntSound.play()
             this.gongSound.play()
@@ -166,6 +194,7 @@ class MainMenu extends Phaser.Scene {
             this.pressPlay.setAlpha(0)
             this.logo.setAlpha(0)
             this.directions.setAlpha(0)
+            this.creditKey.setAlpha(0)
             this.wall.setTexture('wallBr1')
             this.time.delayedCall(500, () => {
                 this.gongSound.play()
