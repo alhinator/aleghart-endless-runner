@@ -14,6 +14,7 @@ class Play extends Phaser.Scene {
         this.spawn_timer = this.spawn_timer_max
 
         this.gameOver = false
+        this.canRestart = false
 
         Obstacle.resetCops()
     }
@@ -117,7 +118,8 @@ class Play extends Phaser.Scene {
     update(){
 
         if(this.gameOver) { 
-            if (Phaser.Input.Keyboard.JustDown(keyPUNCH)){
+
+            if (this.canRestart && Phaser.Input.Keyboard.JustDown(keyPUNCH)){
                 //this.scene.restart()
                 this.BGM.stop()
                 this.scene.start('mainMenuScene')
@@ -185,6 +187,9 @@ class Play extends Phaser.Scene {
         //restart texts
         this.restart.setVisible(true)
         this.restart2.setVisible(true)
+
+        //allow for restart after a few secs
+        this.time.delayedCall(1000, () => {this.canRestart = true})
         
     }
 

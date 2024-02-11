@@ -20,6 +20,6 @@ let game = new Phaser.Game(config)
 let { height, width } = game.config
 
 let keyLEFT, keyRIGHT
-let keyPUNCH, keySLIDE
+let keyPUNCH, keySLIDE, keyESC
 
 
