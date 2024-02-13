@@ -210,7 +210,7 @@ class MainMenu extends Phaser.Scene {
                     this.createExplosion(width/2, height*3/4)
                     //last delayed call i promise
                    //start game scene
-                    this.time.delayedCall(3800, () => {this.runSound.stop() ; this.scene.start('playScene')})
+                    this.time.delayedCall(2300, () => {this.runSound.stop() ; this.scene.start('playScene')})
                 }, null, this)
             }, null, this)
         }
@@ -230,7 +230,6 @@ class MainMenu extends Phaser.Scene {
         //bounce
         if(thing.alpha <= 0.2) { thing.alphaDirection = 1}
         if(thing.alpha >= 1) { thing.alphaDirection = -1}
-        console.log(delta)
         thing.alpha += thing.alphaDirection/10*speed*delta
     }
 
