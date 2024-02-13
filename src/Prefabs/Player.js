@@ -30,31 +30,31 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     }
 
 
-    incLeft(){ // to be called in Update if the target position is left.
+    incLeft(delta){ // to be called in Update if the target position is left.
         if(this.x > this.POS_LEFT){
-            this.x -= (this.x - this.POS_LEFT)/10
+            this.x -= (this.x - this.POS_LEFT)/10*delta
         }
     }
-    incRight(){ // to be called in Update if the target position is right.
+    incRight(delta){ // to be called in Update if the target position is right.
         if(this.x < this.POS_RIGHT){
-            this.x += (this.POS_RIGHT - this.x)/10
+            this.x += (this.POS_RIGHT - this.x)/10*delta
         }
     }
-    returnRun(){
+    returnRun(delta){
         if(this.y > this.POS_RUN){
-            this.y -= (this.y - this.POS_RUN)/10
+            this.y -= (this.y - this.POS_RUN)/10*delta
         }
     }
-    slideSlide(){
+    slideSlide(delta){
         if(this.y < this.POS_SLIDE){
-            this.y += (this.POS_SLIDE - this.y)/3
+            this.y += (this.POS_SLIDE - this.y)/3*delta
         }
     }
 
 
 
 
-    update(){
+    update(delta){
         //keypress
         //rules: you can move lr if you are not currently sliding; you may do any action mid-movement.
         //you can't slide if you are sliding, but you can slide during movement or cancel a punch
@@ -105,12 +105,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }
         //move
         switch(this.target_pos[0]){
-            case 'left': this.incLeft(); break;
-            case 'right': this.incRight(); break;
+            case 'left': this.incLeft(delta); break;
+            case 'right': this.incRight(delta); break;
         }
         switch(this.target_pos[1]){
-            case 'run': this.returnRun(); break;
-            case 'slide': this.slideSlide(); break;
+            case 'run': this.returnRun(delta); break;
+            case 'slide': this.slideSlide(delta); break;
         }
         if(this.actionState == 'running' && !this.runSound.isPlaying) { this.runSound.play()}
 

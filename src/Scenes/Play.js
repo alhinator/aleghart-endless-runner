@@ -116,7 +116,7 @@ class Play extends Phaser.Scene {
 
     }
 
-    update(){
+    update(time, delta){
 
         if(this.gameOver) { 
 
@@ -133,7 +133,7 @@ class Play extends Phaser.Scene {
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){
-            this.runner.y -= 3
+            this.runner.y -= 3*delta
             if(this.runner.y <= height/2 - this.runner.height/4){
                 //console.log(this.runner.y)
                 this.runner.introGlide = 'down'
@@ -141,12 +141,12 @@ class Play extends Phaser.Scene {
             }
         }
         else if(this.runner.introGlide == 'down'){
-            this.runner.y += 3
+            this.runner.y += 3*delta
             if(this.runner.y >= height/2 - this.runner.height/6){
                 this.runner.introGlide = false
             }
         } else { //runner should have control over its own body now.
-            let m = this.runner.update()
+            let m = this.runner.update(delta)
             if (m.gameOver){ 
                 this.gameOverFunc()
             }
@@ -157,11 +157,11 @@ class Play extends Phaser.Scene {
             for(let i in this.obstacles){
                 let obj = this.obstacles[i]
                 if(!obj) { continue}
-                obj.update(this.obstacles, i)
+                obj.update(this.obstacles, i, delta)
             }
 
             //update fruits
-            Fruit.tick()
+            Fruit.tick(delta)
         }
 
 

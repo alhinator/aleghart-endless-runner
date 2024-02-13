@@ -49,13 +49,13 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
     }
 
 
-    update(_obstacles, _i) {
+    update(_obstacles, _i, delta) {
         if(this.movingUp){
-            this.y -= Obstacle.SPEED
+            this.y -= Obstacle.SPEED*delta
         } else { 
             if (this.collidable) { this.collidable = false}
             else { this.disableBody(false, false) ; this.body.destroy() ; this.setTint(0xaaaaaa)}
-            this.y += 3
+            this.y += 3*delta
         }
         //console.log(this.texture)
         switch(this.texture.key){
