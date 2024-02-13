@@ -1,5 +1,5 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite{
-    static SPEED = 3
+    static SPEED = 15
     static cops = 0
     constructor(scene, x, y, texture, frame){
         //DO NOT USE CONSTRUCTOR TO CREATE NEW OBSTACLES. USE createNewObstacle INSTEAD TO GET PROPER GENERATION.
@@ -50,14 +50,13 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
 
 
     update(_obstacles, _i, delta) {
-        let deltaTime = delta/100
 
         if(this.movingUp){
-            this.y -= Obstacle.SPEED*deltaTime
+            this.y -= Obstacle.SPEED*delta
         } else { 
             if (this.collidable) { this.collidable = false}
             else { this.disableBody(false, false) ; this.body.destroy() ; this.setTint(0xaaaaaa)}
-            this.y += 3*deltaTime
+            this.y += Obstacle.SPEED/1.5*delta
         }
         //console.log(this.texture)
         switch(this.texture.key){
@@ -106,7 +105,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite{
 
     static speedUp(){
         //console.log("speeding up obbys!")
-        Obstacle.SPEED += 1
+        Obstacle.SPEED += 5
     }
     
 }

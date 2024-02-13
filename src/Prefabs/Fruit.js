@@ -1,5 +1,5 @@
 class Fruit extends Phaser.Physics.Arcade.Sprite {
-    static SPEED = 5
+    static SPEED = 18
 
     static F_NAMES = ['carrot', 'grapes', 'kiwi', 'orange', 'pear', 'tomato']
 
@@ -19,13 +19,12 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
     }
 
     static tick(delta){
-        let deltaTime = delta /100
         //this is called every frame when not gameover
 
         //move fruits up
         for ( let i in Fruit.FRUITS){
             let fr = Fruit.FRUITS[i]
-            fr.update(Fruit.FRUITS, i, deltaTime)
+            fr.update(Fruit.FRUITS, i, delta)
         }
 
     }
@@ -37,7 +36,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
             this.disableBody(false, false)
             this.body.destroy()
             this.setTint(0xaaaaaa)
-            this.y += 3*delta
+            this.y += Fruit.SPEED/1.5*delta
         }
         
         if(this.y <= height/2) { this.movingUp = false; this.depth = 1}
@@ -63,7 +62,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
 
     static speedUp(){
         //console.log("speeding up fruits!")
-        SPEED += 1
+        SPEED += 4
     }
 
     static createFruitArray(scene, _runner){
@@ -75,7 +74,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
         for( let i = 0; i <= num; i++){
             let fframe = this.F_NAMES[Phaser.Math.Between(0, this.F_NAMES.length-1)]
             let temp = new Fruit(scene, xpos, height + 64*i, fframe, 0)
-            temp.setDepth(4)
+            temp.setDepth(3.9)
             Fruit.FRUITS.push(temp)
             scene.physics.add.collider(_runner, temp, Fruit.handleCollision, null, scene)
 

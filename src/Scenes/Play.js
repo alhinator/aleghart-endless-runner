@@ -117,7 +117,7 @@ class Play extends Phaser.Scene {
     }
 
     update(time, delta){
-
+        delta = delta/100
         if(this.gameOver) { 
 
             if (this.canRestart && Phaser.Input.Keyboard.JustDown(keyPUNCH)){
@@ -133,7 +133,7 @@ class Play extends Phaser.Scene {
         //the initial 'summit of the hill
         //console.log(this.runner.introGlide)
         if(this.runner.introGlide == 'up'){
-            this.runner.y -= 3*delta
+            this.runner.y -= 20*delta
             if(this.runner.y <= height/2 - this.runner.height/4){
                 //console.log(this.runner.y)
                 this.runner.introGlide = 'down'
@@ -141,7 +141,7 @@ class Play extends Phaser.Scene {
             }
         }
         else if(this.runner.introGlide == 'down'){
-            this.runner.y += 3*delta
+            this.runner.y += 10*delta
             if(this.runner.y >= height/2 - this.runner.height/6){
                 this.runner.introGlide = false
             }

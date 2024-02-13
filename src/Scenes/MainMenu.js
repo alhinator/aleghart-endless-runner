@@ -170,13 +170,13 @@ class MainMenu extends Phaser.Scene {
     }
 
     update(time, delta){
-        let deltaTime = delta/100
+        delta = delta/100
         if (!this.animatingStart){
-            this.alphaOscillate(this.pressPlay,2, deltaTime)
+            this.alphaOscillate(this.pressPlay,2, delta)
         }
         if (this.runningDown){
             this.charTest.alpha += 0.03
-            this.charTest.y += 1.5
+            this.charTest.y += 10*delta
             
         }
 
