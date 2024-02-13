@@ -55,6 +55,8 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
 
     update(delta){
+        let deltaTime = delta/100
+
         //keypress
         //rules: you can move lr if you are not currently sliding; you may do any action mid-movement.
         //you can't slide if you are sliding, but you can slide during movement or cancel a punch
@@ -105,12 +107,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }
         //move
         switch(this.target_pos[0]){
-            case 'left': this.incLeft(delta); break;
-            case 'right': this.incRight(delta); break;
+            case 'left': this.incLeft(deltaTime); break;
+            case 'right': this.incRight(deltaTime); break;
         }
         switch(this.target_pos[1]){
-            case 'run': this.returnRun(delta); break;
-            case 'slide': this.slideSlide(delta); break;
+            case 'run': this.returnRun(deltaTime); break;
+            case 'slide': this.slideSlide(deltaTime); break;
         }
         if(this.actionState == 'running' && !this.runSound.isPlaying) { this.runSound.play()}
 

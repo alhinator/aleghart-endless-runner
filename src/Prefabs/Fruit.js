@@ -19,12 +19,13 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
     }
 
     static tick(delta){
+        let deltaTime = delta /100
         //this is called every frame when not gameover
 
         //move fruits up
         for ( let i in Fruit.FRUITS){
             let fr = Fruit.FRUITS[i]
-            fr.update(Fruit.FRUITS, i, delta)
+            fr.update(Fruit.FRUITS, i, deltaTime)
         }
 
     }
@@ -36,7 +37,7 @@ class Fruit extends Phaser.Physics.Arcade.Sprite {
             this.disableBody(false, false)
             this.body.destroy()
             this.setTint(0xaaaaaa)
-            this.y += 3
+            this.y += 3*delta
         }
         
         if(this.y <= height/2) { this.movingUp = false; this.depth = 1}

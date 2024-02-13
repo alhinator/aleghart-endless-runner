@@ -170,8 +170,9 @@ class MainMenu extends Phaser.Scene {
     }
 
     update(time, delta){
+        let deltaTime = delta/100
         if (!this.animatingStart){
-            this.alphaOscillate(this.pressPlay,2, delta)
+            this.alphaOscillate(this.pressPlay,2, deltaTime)
         }
         if (this.runningDown){
             this.charTest.alpha += 0.03
@@ -229,8 +230,8 @@ class MainMenu extends Phaser.Scene {
         //bounce
         if(thing.alpha <= 0.2) { thing.alphaDirection = 1}
         if(thing.alpha >= 1) { thing.alphaDirection = -1}
-
-        thing.alpha += thing.alphaDirection/100*speed*delta
+        console.log(delta)
+        thing.alpha += thing.alphaDirection/10*speed*delta
     }
 
 
