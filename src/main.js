@@ -1,6 +1,6 @@
 //Alex Leghart
 //Game Title: Fruit PUNCH
-//Approx Hours: 30+ less than 40
+//Approx Hours: 30+, less than 40
 
 /* Creative Tilt: 
     I made all the sprites for the game other than the fruit that you pick up, as well as all the sound effects.
