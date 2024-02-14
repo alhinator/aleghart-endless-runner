@@ -7,7 +7,7 @@ class Loading extends Phaser.Scene {
         //console.log('in Loading preload')
 
          //load character sprites
-         this.load.spritesheet('char', './assets/char/char_sp.png', { frameWidth: 247, frameHeight: 215 })
+         this.load.atlas('char', './assets/char/char_sp.png', './assets/char/char_sp.json')
          this.load.image('splat', './assets/char/ketchup.png', {width:256, height:256})
 
         //grab our logo

@@ -40,27 +40,30 @@ class MainMenu extends Phaser.Scene {
             key: 'running',
             frameRate: 6,
             repeat: -1, 
-            frames: this.anims.generateFrameNumbers('char', {
-                start:0,
-                end:1
+            frames: this.anims.generateFrameNames('char', {
+                prefix:'run_',
+                start:1,
+                end:2
             })
         })
         this.anims.create({
             key: 'slide',
             frameRate: 10,
             repeat: 3, 
-            frames: this.anims.generateFrameNumbers('char', {
-                start:2,
-                end:2
+            frames: this.anims.generateFrameNames('char', {
+                prefix:'slide_',
+                start:1,
+                end:1
             })
         })
         this.anims.create({
             key: 'punch',
             frameRate: 7,
             repeat: 0, 
-            frames: this.anims.generateFrameNumbers('char', {
-                start:3,
-                end:5
+            frames: this.anims.generateFrameNames('char', {
+                prefix:'punch_',
+                start:1,
+                end:3
             })
         })
 
